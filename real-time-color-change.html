@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Real-Time Color Change</title>
+ <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+    }
+
+    .screen {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      border: 1px solid #ccc;
+      width: 100%;
+      max-width: 300px;
+    }
+ </style>
+</head>
+<body>
+
+ <div class="screen">
+    <input type="text" id="colorInput" placeholder="Enter ColorName or HashCode or RGB" oninput="changeColor()">
+ </div>
+
+ <script>
+    function changeColor() {
+      var colorInput = document.getElementById('colorInput');
+      var inputValue = colorInput.value;
+      var targetElement = document.querySelector('.screen'); // Change this selector based on your needs
+      targetElement.style.backgroundColor = inputValue;
+    }
+ </script>
+
+</body>
+</html>
