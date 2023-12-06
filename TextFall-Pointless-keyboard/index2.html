@@ -1,0 +1,503 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gravity Effect</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+
+    .fallingText {
+      position: absolute;
+      font-size: 36px; /* Adjust the font size as needed */
+      color: #333;
+    }
+
+    input {
+      font-size: 18px;
+      padding: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <input type="text" id="inputField" placeholder="Type here">
+  <script>
+    const inputField = document.getElementById('inputField');
+
+    inputField.addEventListener('input', (event) => {
+      const text = event.target.value;
+      createFallingText(text);
+      event.target.value = '';
+    });
+
+    function createFallingText(text) {
+      const fallingText = document.createElement('div');
+      fallingText.textContent = text;
+      fallingText.classList.add('fallingText'); // Use the correct class
+      fallingText.style.left = Math.random() * window.innerWidth + 'px';
+      document.body.appendChild(fallingText);
+
+      animateFallingText(fallingText);
+    }
+
+    function animateFallingText(element) {
+      const gravity = 0.3; // Adjust the gravity to make falling slower
+      let velocity = 0;
+      let rotation = 0;
+
+      function update() {
+        velocity += gravity;
+        element.style.top = parseInt(element.style.top) + velocity + 'px';
+        rotation += 2; // Adjust rotation speed
+        element.style.transform = 'rotate(' + rotation + 'deg)';
+
+        if (parseInt(element.style.top) > window.innerHeight) {
+          document.body.removeChild(element);
+        } else {
+          requestAnimationFrame(update);
+        }
+      }
+
+      element.style.position = 'absolute';
+      element.style.top = '0';
+      element.style.transition = 'transform 0.1s linear';
+
+      requestAnimationFrame(update);
+    }
+  </script>
+</body>
+</html>
+ 
+
+<!--
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gravity Effect</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+
+    .fallingText {
+      position: absolute;
+      font-size: 36px; /* Adjust the font size as needed */
+      color: #333;
+    }
+
+    #pileup {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+    }
+
+    #stats {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 16px;
+    }
+
+    input {
+      font-size: 18px;
+      padding: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <input type="text" id="inputField" placeholder="Type here">
+  <div id="stats"></div>
+  <button onclick="reset()">Reset</button>
+  <div id="pileup"></div>
+  <script>
+    const inputField = document.getElementById('inputField');
+    const statsElement = document.getElementById('stats');
+    const pileupElement = document.getElementById('pileup');
+    let typedKeys = {};
+    let pileupText = '';
+
+    inputField.addEventListener('input', (event) => {
+      const text = event.target.value;
+      createFallingText(text);
+      updateStats(text);
+      updatePileup(text);
+      event.target.value = '';
+    });
+
+    function createFallingText(text) {
+      const fallingText = document.createElement('div');
+      fallingText.textContent = text;
+      fallingText.classList.add('fallingText');
+      fallingText.style.left = Math.random() * window.innerWidth + 'px';
+      document.body.appendChild(fallingText);
+
+      animateFallingText(fallingText);
+    }
+
+    function animateFallingText(element) {
+      const gravity = 0.3; // Adjust the gravity to make falling slower
+      let velocity = 0;
+      let rotation = 0;
+
+      function update() {
+        velocity += gravity;
+        element.style.top = parseInt(element.style.top) + velocity + 'px';
+        rotation += 2; // Adjust rotation speed
+        element.style.transform = 'rotate(' + rotation + 'deg)';
+
+        if (parseInt(element.style.top) > window.innerHeight) {
+          document.body.removeChild(element);
+        } else {
+          requestAnimationFrame(update);
+        }
+      }
+
+      element.style.position = 'absolute';
+      element.style.top = '0';
+      element.style.transition = 'transform 0.1s linear';
+
+      requestAnimationFrame(update);
+    }
+
+    function updateStats(key) {
+      typedKeys[key] = (typedKeys[key] || 0) + 1;
+      statsElement.textContent = `Last Typed Key: ${key} | Count: ${typedKeys[key]}`;
+    }
+
+    function updatePileup(text) {
+      pileupText += text;
+      pileupElement.textContent = pileupText;
+    }
+
+    function reset() {
+      typedKeys = {};
+      pileupText = '';
+      statsElement.textContent = '';
+      pileupElement.textContent = '';
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gravity Effect</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+
+    .fallingText {
+      position: absolute;
+      font-size: 24px;
+      color: #333;
+    }
+
+    #ground {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 20px;
+      background-color: #888;
+    }
+
+    #pileup {
+      position: absolute;
+      bottom: 30px; /* Adjust the distance from the ground */
+      width: 100%;
+      text-align: center;
+    }
+
+    #stats {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 16px;
+    }
+
+    input {
+      font-size: 18px;
+      padding: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <input type="text" id="inputField" placeholder="Type here">
+  <div id="stats"></div>
+  <button onclick="reset()">Reset</button>
+  <div id="ground"></div>
+  <div id="pileup"></div>
+
+  <script>
+    const inputField = document.getElementById('inputField');
+    const statsElement = document.getElementById('stats');
+    const pileupElement = document.getElementById('pileup');
+    const groundElement = document.getElementById('ground');
+    let typedKeys = {};
+    let pileupText = '';
+
+    inputField.addEventListener('input', (event) => {
+      const text = event.target.value;
+
+      for (let i = 0; i < text.length; i++) {
+        createFallingText(text[i]);
+        updateStats(text[i]);
+        updatePileup(text[i]);
+      }
+
+      event.target.value = '';
+    });
+
+    function createFallingText(char) {
+      const fallingText = document.createElement('div');
+      fallingText.textContent = char;
+      fallingText.classList.add('fallingText');
+      fallingText.style.left = Math.random() * window.innerWidth + 'px';
+      document.body.appendChild(fallingText);
+
+      animateFallingText(fallingText);
+    }
+
+    function animateFallingText(element) {
+      const gravity = 0.3;
+      let velocity = 0;
+      let rotation = 0;
+
+      function update() {
+        velocity += gravity;
+        element.style.top = parseInt(element.style.top) + velocity + 'px';
+        rotation += 2;
+        element.style.transform = 'rotate(' + rotation + 'deg)';
+
+        const groundRect = groundElement.getBoundingClientRect();
+        const elementRect = element.getBoundingClientRect();
+
+        if (elementRect.bottom >= groundRect.top) {
+          // Collided with ground, stop falling
+          element.style.top = groundRect.top - elementRect.height + 'px';
+          velocity = 0;
+        }
+
+        if (parseInt(element.style.top) > window.innerHeight) {
+          document.body.removeChild(element);
+        } else {
+          requestAnimationFrame(update);
+        }
+      }
+
+      element.style.position = 'absolute';
+      element.style.top = '0';
+      element.style.transition = 'transform 0.1s linear';
+
+      requestAnimationFrame(update);
+    }
+
+    function updateStats(key) {
+      typedKeys[key] = (typedKeys[key] || 0) + 1;
+      statsElement.textContent = `Last Typed Key: ${key} | Count: ${typedKeys[key]}`;
+    }
+
+    function updatePileup(text) {
+      pileupText += text;
+      pileupElement.textContent = pileupText;
+    }
+
+    function reset() {
+      typedKeys = {};
+      pileupText = '';
+      statsElement.textContent = '';
+      pileupElement.textContent = '';
+    }
+  </script>
+</body>
+</html> -->
+
+
+
+
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gravity Effect</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+
+    .fallingText {
+      position: absolute;
+      font-size: 24px;
+      color: #333;
+    }
+
+    #ground {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 20px;
+      background-color: #888;
+    }
+
+    #pileup {
+      position: absolute;
+      bottom: 30px; /* Adjust the distance from the ground */
+      width: 100%;
+      text-align: center;
+    }
+
+    #stats {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 16px;
+    }
+
+    input {
+      font-size: 18px;
+      padding: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <input type="text" id="inputField" placeholder="Type here">
+  <div id="stats"></div>
+  <button onclick="reset()">Reset</button>
+  <div id="ground"></div>
+  <div id="pileup"></div>
+
+  <script>
+    const inputField = document.getElementById('inputField');
+    const statsElement = document.getElementById('stats');
+    const pileupElement = document.getElementById('pileup');
+    const groundElement = document.getElementById('ground');
+    let typedKeys = {};
+    let pileupText = '';
+
+    inputField.addEventListener('input', (event) => {
+      const text = event.target.value;
+
+      for (let i = 0; i < text.length; i++) {
+        createFallingText(text[i]);
+        updateStats(text[i]);
+        updatePileup(text[i]);
+      }
+
+      event.target.value = '';
+    });
+
+    function createFallingText(char) {
+      const fallingText = document.createElement('div');
+      fallingText.textContent = char;
+      fallingText.classList.add('fallingText');
+      fallingText.style.left = Math.random() * window.innerWidth + 'px';
+      document.body.appendChild(fallingText);
+
+      animateFallingText(fallingText);
+    }
+
+function animateFallingText(element) {
+  const gravity = 0.3;
+  let velocity = 0;
+  let rotation = 0;
+  let isGrounded = false;
+
+  function update() {
+    if (isGrounded) {
+      return; // Stop updating if already grounded
+    }
+
+    velocity += gravity;
+    element.style.top = parseInt(element.style.top) + velocity + 'px';
+    rotation += 2;
+    element.style.transform = 'rotate(' + rotation + 'deg)';
+
+    const groundRect = groundElement.getBoundingClientRect();
+    const elementRect = element.getBoundingClientRect();
+
+    if (elementRect.bottom >= groundRect.top) {
+      // Collided with ground, stop falling
+      element.style.top = groundRect.top - elementRect.height + 'px';
+      velocity = 0;
+      isGrounded = true;
+    }
+
+    if (parseInt(element.style.top) > window.innerHeight) {
+      document.body.removeChild(element);
+    } else {
+      requestAnimationFrame(update);
+    }
+  }
+
+  element.style.position = 'absolute';
+  element.style.top = '0';
+  element.style.transition = 'transform 0.1s linear';
+
+  requestAnimationFrame(update);
+}
+
+
+
+    function updateStats(key) {
+      typedKeys[key] = (typedKeys[key] || 0) + 1;
+      statsElement.textContent = `Last Typed Key: ${key} | Count: ${typedKeys[key]}`;
+    }
+
+    function updatePileup(text) {
+      pileupText += text;
+      pileupElement.textContent = pileupText;
+    }
+
+    function reset() {
+      typedKeys = {};
+      pileupText = '';
+      statsElement.textContent = '';
+      pileupElement.textContent = '';
+    }
+  </script>
+</body>
+</html> -->
