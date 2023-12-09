@@ -1,0 +1,1 @@
+magrin is given by m and p along with device
